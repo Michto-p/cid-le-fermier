@@ -61,7 +61,6 @@ class Hero
         @wait = 0
       end
     end
-    puts @wait
   end
 
   def draw
