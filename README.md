@@ -1,1 +1,2 @@
-# cid-le-fermier
+cid-le-fermier
+Jeu de gestion de ferme.
