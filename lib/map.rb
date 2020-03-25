@@ -11,7 +11,7 @@ class GenerateMap
     @map = Hash.new
     for x in 0..size_x
       for y in 0..size_y
-        @map[[x,y]] = 0,nil
+        @map[[x,y]] = rand(0..8),nil
       end
     end
     return @map

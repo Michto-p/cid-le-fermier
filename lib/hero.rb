@@ -1,9 +1,9 @@
 class Hero
   def initialize
 
-    @hero = Character.new("gfx/character/farmer.png", 16, 24)
-    @hero_wait = Image.load_tiles("gfx/character/stand_1.png", 16, 24, retro: true)
-    @hero_houe = Character.new("gfx/character/houe.png", 24, 38)
+    @hero = Character.new("gfx/character/farmer.png", 48, 48)
+    @hero_wait = Image.load_tiles("gfx/character/stand_1.png", 48, 48, retro: true)
+    @hero_houe = Character.new("gfx/character/houe.png", 48, 48)
 
     @dir = "down"
     @move = false
@@ -24,6 +24,8 @@ class Hero
 
   def button_down(id)
     
+    @wait = 0
+    @stand = false
     if id == Gosu::KB_A and @action == false
       tick = 0
       @action = true 
@@ -55,6 +57,7 @@ class Hero
   end
 
   def hero_action
+    
     @tick += 1
     case @item
     when "houe"
