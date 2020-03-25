@@ -8,16 +8,6 @@ class Character
     @end_anim = true
   end
 
-  def button_down(id)
-    
-   
-  end
-
-  def button_up(id)
-    
-  end
-
-
   def anim(time = 12,auto_anim = false)
 
     keys = [Gosu::KB_W, Gosu::KB_A, Gosu::KB_Q, Gosu::KB_S, Gosu::KB_D, Gosu::KB_LEFT, Gosu::KB_RIGHT, Gosu::KB_UP, Gosu::KB_DOWN]

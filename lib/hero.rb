@@ -1,9 +1,11 @@
 class Hero
+  attr_accessor :x,:y
   def initialize
 
-    @hero = Character.new("gfx/character/farmer.png", 48, 48)
-    @hero_wait = Image.load_tiles("gfx/character/stand_1.png", 48, 48, retro: true)
-    @hero_houe = Character.new("gfx/character/houe.png", 48, 48)
+    @tile_size = 48
+    @hero = Character.new("gfx/character/farmer.png", @tile_size, @tile_size)
+    @hero_wait = Image.load_tiles("gfx/character/stand_1.png", @tile_size, @tile_size, retro: true)
+    @hero_houe = Character.new("gfx/character/houe.png", @tile_size, @tile_size)
 
     @dir = "down"
     @move = false
@@ -15,7 +17,7 @@ class Hero
     @frame      = 0
     @frame_time = 0
 
-    @x,@y,@z = 10,10,0
+    @x,@y,@z = 0,0,0
 
     @action = false
     @item = "houe"
@@ -61,9 +63,23 @@ class Hero
     @tick += 1
     case @item
     when "houe"
-      if @hero_houe.end_anim == false
+      if @hero_houe.end_anim == false 
         @tick = 0
+        if @action == true
+          case @dir
+          when "up"
+            $map[[@x/16,@y/16-1]][0]=4
+          when "down"
+            $map[[@x/16,@y/16+1]][0]=4
+          when "left"
+            $map[[@x/16-1,@y/16]][0]=4
+          when "right"
+            $map[[@x/16+1,@y/16]][0]=4
+          end
+        end
         @action = false
+       
+
       end
     end
   end
@@ -105,19 +121,23 @@ class Hero
 
   end
 
-  def draw
+  def draw_hero(x,y,z)
     if @stand == true
-      @hero_wait[@frame].draw(@x,@y,@z)
+      @hero_wait[@frame].draw(x,y,z)
     else
       if @action
         case @item
         when "houe"
-          @hero_houe.draw(@x,@y,@z,@dir,true)
+          @hero_houe.draw(x,y,z,@dir,true)
         end
       else
-        @hero.draw(@x,@y,@z,@dir,@move)
+        @hero.draw(x,y,z,@dir,@move)
       end
     end
+  end
+
+  def draw
+    draw_hero(@x-@tile_size/2,@y-@tile_size/2,@z)
   end
 end
 

@@ -11,7 +11,7 @@ class GenerateMap
     @map = Hash.new
     for x in 0..size_x
       for y in 0..size_y
-        @map[[x,y]] = rand(0..8),nil
+        @map[[x,y]] = rand(0..3),nil
       end
     end
     return @map
@@ -30,7 +30,7 @@ class Map
     @tileset = Image.load_tiles('gfx/tileset/sol.png', @tile_size, @tile_size, retro: true)
     size_x,size_y=40,40
 
-    @map = GenerateMap.new(size_x,size_y).map
+    $map = GenerateMap.new(size_x,size_y).map
     
     @hero = Hero.new
   end
@@ -51,7 +51,7 @@ class Map
 
   def draw
 
-    @map.each do |coords, texture|
+    $map.each do |coords, texture|
 			x, y, = coords[0], coords[1]
 			tile1,tile2 = texture[0],texture[1]
         if tile1 != nil
