@@ -4,8 +4,12 @@ class Hero
 
     @tile_size = 48
     @hero = Character.new("gfx/character/farmer.png", @tile_size, @tile_size)
-    @hero_wait = Image.load_tiles("gfx/character/stand_1.png", @tile_size, @tile_size, retro: true)
+    @hero_wait = Hash.new
+    @hero_wait[0] = Image.load_tiles("gfx/character/stand_1.png", @tile_size, @tile_size, retro: true)
+    @hero_wait[1] = Image.load_tiles("gfx/character/stand_2.png", @tile_size, @tile_size, retro: true)
     @hero_houe = Character.new("gfx/character/houe.png", @tile_size, @tile_size)
+
+    @wait_anim = rand(@hero_wait.size-1)
 
     @dir = "down"
     @move = false
@@ -17,7 +21,7 @@ class Hero
     @frame      = 0
     @frame_time = 0
 
-    @x,@y,@z = 0,0,0
+    @x,@y,@z = 10,10,0
 
     @action = false
     @item = "houe"
@@ -49,10 +53,11 @@ class Hero
       if @frame_time > 16
         @frame += 1 
         @frame_time = 0
-        if @frame > @hero_wait.size - 1
+        if @frame > @hero_wait[@wait_anim].size - 1
           @frame = 0
           @stand = false
           @wait = 0
+          @wait_anim = rand(0..@hero_wait.size-1)
         end
       end 
     end
@@ -123,7 +128,7 @@ class Hero
 
   def draw_hero(x,y,z)
     if @stand == true
-      @hero_wait[@frame].draw(x,y,z)
+      @hero_wait[@wait_anim][@frame].draw(x,y,z)
     else
       if @action
         case @item

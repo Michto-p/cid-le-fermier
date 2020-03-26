@@ -50,7 +50,7 @@ class Game < Window
   end
 
   def draw
-    scale(4,4)do
+    scale(2,2)do
       @main_state.draw
     end
   end
